@@ -5,7 +5,7 @@ from dateutil.tz import *
 
 def lambda_handler(event, context):
     #variable
-    tablename = 'ami_backup_policy'
+    tablename = 'Ami_Backup_Policy'
     dest_region = 'us-east-1'
     src_region = 'us-west-2'
     
@@ -20,16 +20,16 @@ def lambda_handler(event, context):
     
     
     
-    response=dynamodb.scan(TableName= tablename)
+    response=dynamodb.scan(TableName = tablename)
     
     amis=response['Items']
     
     #print "for loop started"
     for i in response['Items']:
-        j=i['ami_ids']['S'] 
-    #    print j
-    #    print "for loop ended"
-        resp=cpyami.copy_image(
+        j = i['AMI_ID']['S']
+    #    print(j)
+    #    print ('for loop ended')
+        resp = cpyami.copy_image(
             Name='copy of '+j+' from us-west-2',
             SourceImageId = j,
             SourceRegion = src_region
@@ -46,13 +46,15 @@ def lambda_handler(event, context):
     
          
          
-        print('copied ami with id = '+resp['ImageId']+'successfully') 
+        print('copied ami with id = '+resp['ImageId']+' successfully') 
+        print('Deleting the source ami_id from dynamodb ')
+        
         delete_entry = dynamodb.delete_item(
-        TableName = 'ami_backup_policy',
+        TableName = tablename,
         Key = {
-            'ami_ids' : {
-                'S' : j
-            }
+            'AMI_ID' :{
+                'S': j
+            }    
         }  
         )
-    print("deleted ami id"+j+"from dynamodb table")
+        print('deleted ami id '+j+' from dynamodb table')
