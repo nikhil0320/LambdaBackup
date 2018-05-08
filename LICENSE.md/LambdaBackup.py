@@ -20,7 +20,7 @@ def create_ami(inst):
 	amiresponse = client.create_image(InstanceId=inst, Name= inst+'-'+dest_date) 
 	#print('Adding tags')
         if todaydayest == 'Sunday':
-            client.create_tags(Resources=[amiresponse['ImageId'],],Tags=[{'Key': 'Name','Value': inst+'-'+dest_date },{'Key': 'Auto-Backup','Value': 'yes'},{'Key': backup_type ,'Value':'W'  }],)
+        	client.create_tags(Resources=[amiresponse['ImageId'],],Tags=[{'Key': 'Name','Value': inst+'-'+dest_date },{'Key': 'Auto-Backup','Value': 'yes'},{'Key': backup_type ,'Value':'W'  }],)
         elif dest_date == todaydateest1:
         	client.create_tags(Resources=[amiresponse['ImageId'],],Tags=[{'Key': 'Name','Value': inst+'-'+dest_date },{'Key': 'Auto-Backup','Value': 'yes'},{'Key': backup_type ,'Value':'M'  }],)
         else:
