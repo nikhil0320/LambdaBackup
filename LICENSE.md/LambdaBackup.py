@@ -15,9 +15,9 @@ todaydayest = now.strftime('%A')
 
 todaydateest1  = now.strftime("%Y-%m-01")
 
-#current_dest_time=now.strftime("%H:%M")
+current_dest_time=now.strftime("%H:%M")
 
-current_dest_time = '02:00'
+#current_dest_time = '02:00'
 
 client = boto3.client('ec2')
 dynamodb = boto3.client('dynamodb')
