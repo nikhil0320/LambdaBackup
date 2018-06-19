@@ -41,7 +41,7 @@ def lambda_handler(event, keys):
 
     current_dest_time = now.strftime("%H:%M")
     #print(type(current_dest_time))
-    current_dest_time = '02:00'
+    #current_dest_time = '02:00'
 
 
    # print(lambdanow)
